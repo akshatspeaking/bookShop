@@ -1,3 +1,102 @@
 <header>
+  <div class="header-container">
+    
+    <sl-drawer
+<% if (user && user.email) {%> 
+     label="Welcome, <%= user.email %>" 
+      <% } else { %> 
+        label=""
+        <% } %> 
+        placement="left" class="drawer-placement-left">
+      <!-- <sl-button slot="footer" type="primary">Close</sl-button> -->
+      <sl-menu style="">
+        <sl-menu-item value="undo">Undo</sl-menu-item>
+        <sl-menu-item value="redo">Redo</sl-menu-item>
+        <sl-menu-divider></sl-menu-divider>
+        <sl-menu-item value="cut">Cut</sl-menu-item>
+        <sl-menu-item value="copy">Copy</sl-menu-item>
+        <sl-menu-item value="paste">Paste</sl-menu-item>
 
+        <sl-menu-item value="wishlist">
+          <a href="/users/wishlist">
+          <sl-icon name="heart-fill"></sl-icon>
+          <p>Wishlist</p>
+          </a>
+        </sl-menu-item>
+        <% if (user && user.isAdmin) { %> 
+          <sl-menu-item value="admin">    
+            <a href="/admin">
+          <sl-icon name="gear"></sl-icon>
+          <p>Admin Panel</p>
+        </a>
+        </sl-menu-item>
+      <% } else {%>
+        <sl-menu-item value="cart">    
+          <a href="/users/cart">
+          <sl-icon name="cart4"></sl-icon>
+          <p>Cart</p>
+        </a>
+        </sl-menu-item>
+      <% } %> 
+          
+
+<% if (user) { %> 
+  <sl-menu-item value="logout">    
+  <a href="/users/logout">
+    <sl-icon name="power"></sl-icon>
+    <p>Logout</p>
+  </a>
+</sl-menu-item>
+
+  <% } %> 
+
+      </sl-menu>
+      
+      <!-- <sl-button slot="footer" type="primary">Close</sl-button> -->
+    </sl-drawer>
+
+
+
+    <div class="col">
+
+      <sl-icon name="list" class="hamburger"></sl-icon>
+
+      <a href="/" class="logo">
+        <sl-icon name="book-half"></sl-icon>
+        <h1>BookMart</h1>
+      </a>
+    </div>
+    <div class="col">
+
+      <sl-input placeholder="Search" size="medium" pill>
+        <sl-icon name="search" slot="suffix"></sl-icon>
+      </sl-input>
+    
+
+<% if (!user) { %> 
+  <a href="/users/login">
+    <sl-button>
+      <sl-icon name="person" slot="prefix"></sl-icon>
+      Sign In
+    </sl-button>
+  </a>
+  <% } else {%> 
+    <a href="/users/cart">
+      <sl-icon-button name="cart4">
+        <sl-badge pill pulse>30</sl-badge>
+      </sl-icon-button>
+    </a>
+  <% } %> 
+    </div>
+  </div>
+  <script>
+    (() => {
+      const drawer = document.querySelector('.drawer-placement-left');
+      const openButton = document.querySelector(".hamburger");
+      const closeButton = drawer.querySelector('sl-button[type="primary"]');
+  
+      openButton.addEventListener('click', () => drawer.show());
+      closeButton.addEventListener('click', () => drawer.hide());
+    })();
+  </script>
 </header>

@@ -1,15 +1,58 @@
 <!DOCTYPE html>
 <html>
-<%- include('partials/head') %>
+  <%- include('partials/head') %>
 
-<body class="sl-theme-light">
-  <h1><%= title %></h1>
-  <p>Welcome to <%= title %></p>
-  <sl-button>Click me</sl-button>
-  <div>
-    <sl-button>Dark Mode</sl-button>
-    <sl-button>Light Mode</sl-button>
+  <body class="sl-theme-light">
+    
+    <%- include('partials/header') %>
+    <main>
+      <div class="container">
+
+        
+        <% if (user) { %>
+          <p>
+            Welcome, <%= user.email %>   
+          </p> 
+          <% } %>
+          
+
+
+      
+  <div class="book-list">
+    <ul>
+      <% data.forEach(book => { %>
+        
+        <sl-card class="card-overview">
+          <img 
+          slot="image" 
+            src="/book-images/<%= book.bookimage %>" 
+            alt="Book cover image"
+            >
+            <a href="/book/<%= book.id %>">
+              <strong><%= book.title %></strong><br>
+            </a>
+            <% if (book.author) { %> 
+              By <%= book.author.name %><br>
+              <% } %> 
+              <small><%= book.price %> USD </small>
+              
+            <div slot="footer">
+              <sl-button type="primary" pill>More Info</sl-button>
+                <sl-rating readonly value="<%= book.rating %>"></sl-rating>
+            </div>
+          </sl-card>
+          
+
+          
+          <li>
+            
+            
+            
+          </li>
+          <% }) %> 
+        </ul>
+    </div>
   </div>
-</body>
-
-</html>
+  </main>
+  </body>
+  </html>

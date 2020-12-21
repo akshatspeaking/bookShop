@@ -1,0 +1,12 @@
+.cart-list {
+  display: flex;
+  flex-flow: column nowrap;
+  li {
+    margin: 5rem 0;
+    display: flex;
+    flex-flow: column nowrap;
+  }
+  p {
+    display: block;
+  }
+}

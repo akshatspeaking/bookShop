@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head') %>
+<body>
+  <%- include('partials/adminHeader') %>
+  <main>
+    <a href="/admin/">
+    Back to Admin Panel
+  </a>
+  <form class="book-form" action="/admin/editbook/<%= data[0].id %>", method="POST" enctype=multipart/form-data >
+    <label for="title">Book Title</label>
+    <input name="title" type="text" label="Name" class="book-title" value="<%= data[0].title %>"></input>
+    <label for="bookimage">Book Image</label>
+    <input type="file" name="bookimage" class="book-image">
+    <label for="Description">Description</label>
+    <input name="description" type="text" label="Name" class="book-description"></input>
+
+    <label for="price">Price</label>
+    <input type="number" name="price" class="book-price">
+    <label for="author">Author</label>
+    <select name="author" id="author"  class="book-author">
+      <option value=""></option>
+      <%   data[1].forEach(author => { %>
+      <option value="<%= author.id %>"><%= author.name %></option>
+      <% }) %> 
+    </select>
+    <label for="categories">Category</label>
+    <select name="categories" id="category"  class="book-category">
+      <option value=""></option>
+      <%   data[2].forEach(cat => { %>
+      <option
+      <% if (cat == data[0].category) { %> 
+        <%= "selected" %> 
+      <% } %> 
+      value="<%= cat.id %>"><%= cat.name %></option>
+      <% }) %> 
+    </select>
+    <button type="submit">Submit</button>
+  </form>
+</main>
+</body>
+</html>

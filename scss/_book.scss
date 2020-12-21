@@ -1,0 +1,15 @@
+.book-box {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 2rem 0;
+  h2 {
+    // text-decoration: und8erline;
+    font-size: 2rem;
+  }
+  img {
+    max-height: 200px;
+    margin: 5rem 0;
+  }
+}

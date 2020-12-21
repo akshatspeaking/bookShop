@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head') %>
+<body>
+  <%- include('partials/adminHeader') %>
+  <main>
+    <div class="container">
+
+      <div class="book-box">
+        <h2>
+          <%= book.title %> 
+        </h2>
+        <img src="/book-images/<%= book.bookimage %>" alt="">
+        <p>
+        <%= book.description %> 
+      </p>
+      <p>
+        <!-- <sl-select readonly precision="0.25" value=""></sl-select> -->
+      </p>
+      <p> 
+        By <a href="/authors/<%= book.author.id %>"><%= book.author.name %></a> 
+      </p>
+      <form action="/book/<%= book.id %>/addtocart" method="post">
+        <label for="qty">Qty</label>
+        <input type="number" name="qty" id="qty" value="1">
+        <input type="number" name="rate" id="rate" value="<%= book.price %>" hidden>
+        <button type="submit">Add to Cart</button>
+      </form>
+      <p>REVIEWS</p>
+      <form action="<%= book.id %>/reviews" method="post">
+        <label for="content">Review Text</label>
+        <input type="text" name="content" id="content">
+        <sl-rating precision=".5"></sl-rating>
+        <input type="text" hidden name="rating" class="rating-hidden">
+        <button type="submit">Submit</button>
+      </form>
+      <script>
+        let rating = document.querySelector("sl-rating");
+        rating.addEventListener("slChange", (e) => {
+
+          document.querySelector(".rating-hidden").value = rating.value;
+        })
+      </script>
+      <div class="reviews-list">
+        <ul>
+        <% if (book.reviews) { %> 
+          <% book.reviews.forEach(review => { %>
+            <p>
+            <li>
+              <%= review.content %> 
+        <sl-rating readonly precision=".5" value="<%= review.rating %> "></sl-rating>
+
+            </li>
+            </p>
+          <% }) %> 
+          <% } %> 
+        </ul>
+        </div>
+    </div>
+  </div>
+
+  </main>
+</body>
+</html>

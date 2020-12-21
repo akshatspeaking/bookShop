@@ -1,0 +1,26 @@
+.card-overview {
+  max-width: 300px;
+  margin: 2rem auto;
+  // img {
+  //   max-height: 150px !important;
+  // }
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+ul {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.card-overview small {
+  color: var(--sl-color-gray-50);
+}
+
+.card-overview [slot="footer"] {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+}

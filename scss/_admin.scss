@@ -1,0 +1,15 @@
+sl-tab-panel {
+  min-height: 80vh;
+}
+
+ul {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+li {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head') %>
+<body>
+  <%- include('partials/adminHeader') %>
+  <main>
+    <div class="container">
+
+
+
+
+      <sl-tab-group class="admin-panel">
+        <sl-tab slot="nav" panel="users">Users</sl-tab>
+    <sl-tab slot="nav" panel="orders">Orders</sl-tab>
+    <sl-tab slot="nav" panel="books">Books</sl-tab>
+    <sl-tab slot="nav" panel="authors">Authors</sl-tab>
+    <sl-tab slot="nav" panel="categories">Categories</sl-tab>
+  
+    <sl-tab-panel name="users">
+      This is the general tab panel.
+      <ul>
+        <% if (data[0]) { data[0].forEach(user => { %>
+          <li>
+            <%= user.id %> 
+            <form action="/users/<%= user.id %>/block" method="post">
+              <button type="submit">BLOCK</button>
+            </form>
+          </li>
+        <%  })} %> 
+      </ul>
+    </sl-tab-panel>
+    <sl-tab-panel name="orders">
+      This is the custom tab panel.
+      <ul>
+        <% if (data[1]) { data[1].forEach(order => { %>
+          <li>
+            <p>
+              <%= order.id %> 
+            </p>
+          </li>
+        <%  })} %> 
+      </ul>
+    </sl-tab-panel>
+    <sl-tab-panel name="books"">
+      <sl-details summary="Add Book">
+        <form class="book-form" action="/admin/addbook", method="POST" enctype=multipart/form-data >
+          <label for="title">Book Title</label>
+          <input name="title" type="text" label="Name"></input>
+          <label for="bookimage">Book Image</label>
+          <input type="file" name="bookimage">
+          <label for="Description">Description</label>
+          <input name="description" type="text" label="Name"></input>
+
+          <label for="price">Price</label>
+          <input type="number" name="price">
+          <label for="author">Author</label>
+          <select name="author" id="author">
+            <option value=""></option>
+            <%   data[3].forEach(author => { %>
+            <option value="<%= author.id %>"><%= author.name %></option>
+            <% }) %> 
+          </select>
+          <label for="categories">Category</label>
+          <select name="categories" id="category">
+            <option value=""></option>
+            <%   data[4].forEach(cat => { %>
+            <option value="<%= cat.id %>"><%= cat.name %></option>
+            <% }) %> 
+          </select>
+          <button type="submit">Submit</button>
+        </form>
+      </sl-details>
+      <div class="book-list">
+        <sl-drawer label="Drawer" contained class="drawer-contained book-edit-form" style="--size: 50%;">
+          <form class="book-form" action="/admin/addbook", method="POST" enctype=multipart/form-data >
+            <label for="title">Book Title</label>
+            <input name="title" type="text" label="Name" class="book-title"></input>
+            <label for="bookimage">Book Image</label>
+            <input type="file" name="bookimage">
+            <label for="Description">Description</label>
+            <input name="description" type="text" label="Name"></input>
+  
+            <label for="price">Price</label>
+            <input type="number" name="price">
+            <label for="author">Author</label>
+            <select name="author" id="author">
+              <option value=""></option>
+              <%   data[3].forEach(author => { %>
+              <option value="<%= author.id %>"><%= author.name %></option>
+              <% }) %> 
+            </select>
+            <label for="categories">Category</label>
+            <select name="categories" id="category">
+              <option value=""></option>
+              <%   data[4].forEach(cat => { %>
+              <option value="<%= cat.id %>"><%= cat.name %></option>
+              <% }) %> 
+            </select>
+            <button type="submit">Submit</button>
+          </form>
+          <sl-button slot="footer" type="primary" class="book-form-close">Close</sl-button>
+        </sl-drawer>
+        <ul>
+          <% if (data[2]) { data[2].forEach(book => { %>
+            <li>
+              <sl-avatar shape="square" image="/book-images/<%= book.bookimage %>"></sl-avatar>
+              <a href="#">
+                <%= book.title %> 
+              </a>
+              <% if (book.author) { %> 
+              <p>    
+                <%= book.author.name   %> 
+                <% } %> 
+              </p>
+              <a href="/admin/editbook/<%= book.id %>">
+                <button class="book-edit-btn" data-id="<%= book.id %>">Edit</button>
+              </a>
+              <form action="/admin/deletebook" method="POST">
+                <input type="text" name="id" value="<%= book.id %>" hidden>
+                <button type="submit">DEL</button>
+              </form>
+              
+            </sl-dialog>
+          </li>
+          <%  })}%> 
+        </ul>
+      </div>
+    </sl-tab-panel>
+    <sl-tab-panel name="authors">
+        <sl-details summary="Add Author">
+          <form class="author-form" action="/admin/addauthor", method="POST" enctype=multipart/form-data>
+            <label for="name">Name</label>
+            <input name="name" type="text" label="Name"></input>
+            <br>
+            <label for="author-image">Author Image</label>
+            <input type="file" name="authorimage">
+
+            <label for="description">Description</label>
+
+            <textarea resize="none" name="description"label="Description"></textarea>
+            <br>
+
+            <button type="submit">Submit</button>
+          </form>
+          <sl-alert type="success" class="author-alert">
+            <sl-icon slot="icon" name="check2-circle"></sl-icon>
+            <strong>Book has been added successfully</strong><br>
+          </sl-alert>
+        </sl-details>
+        <ul>
+          <% if (data[3]) { data[3].forEach(author => { %>
+            <li>
+              <p>
+                <%= author.name %> 
+              </p>
+              <a href="/admin/editauthor/<%= author.id %> ">
+              Edit</a>
+              <form action="/admin/deleteauthor" method="POST">
+                <input type="text" name="id" value="<%= author.id %>" hidden>
+                <button type="submit">DEL</button>
+              </form>
+            </li>
+          <%  })} %> 
+        </ul>
+    </sl-tab-panel>
+    <sl-tab-panel name="categories">
+      
+        <sl-details summary="Add Category">
+          <form class="category-form" action="/admin/addcategory", method="POST">
+            <label for="name">Name</label>
+            <input name="name" type="text" label="Name"></input>
+            <button type="submit">Submit</button>
+          </form>
+        </sl-details>
+        <ul>
+          <% if (data[4]) { data[4].forEach(category => { %>
+            <li>
+              <form action="/admin/editcategory" method="POST">
+              <input type="text" name="name" value="<%=category.name%>" disabled>
+              <a href="/admin/deletecategory/<%= category.id %>">Del</a>
+              <button type="submit" hidden>Save</button>
+            </form>
+            <button class="edit-category" data-id="<%= category.id %>">Edit</button>
+            </li>
+          <%  })} %> 
+        </ul>
+    </sl-tab-panel>
+  </sl-tab-group>
+</div>
+  </main>
+ <script src="/javascripts/admin.js"></script>
+</body>
+</html>

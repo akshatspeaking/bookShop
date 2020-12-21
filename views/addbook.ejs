@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head') %>
+<body>
+  <%- include('partials/adminHeader') %>
+  <main>
+    <a href="/admin/">
+    Back to Admin Panel
+  </a>
+  <sl-form class="form-overview">
+    <sl-input name="name" type="text" label="Name"></sl-input>
+    <br>
+    <sl-select name="favorite" label="Select Author">
+      <sl-menu-item value="birds">Author 1</sl-menu-item>
+      <sl-menu-item value="cats">Cats</sl-menu-item>
+      <sl-menu-item value="dogs">Dogs</sl-menu-item>
+    </sl-select>
+    <br>
+    <sl-checkbox name="agree" value="yes">
+      Add to Featured
+    </sl-checkbox>
+    <sl-checkbox name="agree" value="yes">
+      Add to New Releases
+    </sl-checkbox>
+    <sl-input name="name" type="number" label="Price"></sl-input>
+
+    <br><br>
+    <sl-button submit>Submit</sl-button>
+  </sl-form>
+  </main>
+</body>
+</html>

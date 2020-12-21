@@ -6,21 +6,62 @@
 
 <body>
   !!! LOGIN PAGE!!!!
-  <form action="/users/login" method="POST">
-    <input type="text" name="email" id="email" placeholder="Email">
-    <input type="password" name="password" placeholder="Password">
-    <button type="submit">Login</button>
-  </form>
-  <a href="/users/register">
-    <button>
-      Sign Up
-    </button>
-  </a>
-  <a href="/users/auth/google">
-    <button>
-      Login with Google
-    </button>
-  </a>
+
+<% if (flashmsg) { %>
+ <sl-alert type="info" open>
+  <sl-icon slot="icon" name="exclamation-octagon"></sl-icon>
+  <strong>Error!</strong><br>
+  <%= flashmsg %>
+</sl-alert>
+<% } %>
+
+  <sl-tab-group>
+    <sl-tab slot="nav" panel="login">Log In</sl-tab>
+    <sl-tab slot="nav" panel="signup">Sign Up</sl-tab>
+    <sl-tab-panel name="login" class="login-form">
+      <form action="/users/login" method="POST">
+        <input type="text" name="email" class="emailForm" id="email" placeholder="Email" hidden>
+        <sl-input class="emailSl" placeholder="Email" size="medium" pill></sl-input>
+        <input type="password" class="passwordForm" name="password" placeholder="Password" hidden>
+        <sl-input type="password" class="passwordSl"
+        placeholder="Password Toggle" size="medium" toggle-password pill></sl-input>
+        <button type="submit" hidden class="loginForm">Login</button>
+        <sl-button class="loginbtn">LogIn</sl-button>
+      </form>
+      <a href="/users/auth/google">
+        <button>
+          Login with Google
+        </button>
+      </a>
+    </sl-tab-panel>
+    <sl-tab-panel name="signup">
+      <form action="/users/register" method="POST">
+        <input class="emailForm2" hidden type="text" name="email" id="email" placeholder="Email">
+        <sl-input class="emailSl2" placeholder="Email" size="medium" pill></sl-input>
+
+        <input hidden type="password" name="password" placeholder="Password" class="passwordForm2">
+        <sl-input type="password" class="passwordSl2"
+        placeholder="Password Toggle" size="medium" toggle-password pill></sl-input>
+        <button class="signupForm" type="submit">Register</button>
+        <sl-button class="signUpBtn">Sign Up</sl-button>
+
+      </form>
+    </sl-tab-panel>
+    <script>
+      let loginBtn = document.querySelector(".loginbtn");
+      loginBtn.addEventListener("click", (e) => {
+        document.querySelector(".emailForm").value = document.querySelector(".emailSl").value;
+        document.querySelector(".passwordForm").value = document.querySelector(".passwordSl").value;
+        document.querySelector(".loginForm").click();
+      })
+
+      let signUpBtn = document.querySelector(".signUpBtn");
+      signUpBtn.addEventListener("click", (e) => {
+        document.querySelector(".emailForm2").value = document.querySelector(".emailSl2").value;
+        document.querySelector(".passwordForm2").value = document.querySelector(".passwordSl2").value;
+        document.querySelector(".signupForm").click();
+      })
+    </script>
 </body>
 
 </html>

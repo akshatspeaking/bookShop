@@ -1,0 +1,15 @@
+@import "header";
+@import "home";
+@import "book";
+@import "admin";
+@import "cart";
+
+
+html {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+  max-width: 1800px;
+  margin: 0 auto;
+}
